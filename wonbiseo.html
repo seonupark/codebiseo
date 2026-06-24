@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>원비서 — 학원 운영을 한 곳에서 | 코드비서</title>
+<meta name="description" content="원비서는 학원·교습소 운영에 필요한 수납, 안내 문자, 출결, 현금영수증, 수강생 관리를 하나로 묶은 올인원 솔루션입니다." />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+<style>
+  :root{
+    --primary:#1F5FA8;
+    --primary-dark:#163A5E;
+    --navy:#13283F;
+    --accent:#E59A1C;
+    --ink:#1A2632;
+    --muted:#5C6B7A;
+    --line:#E5E9EF;
+    --bg:#FFFFFF;
+    --bg-alt:#F5F7FA;
+    --radius:14px;
+    --maxw:1120px;
+    --ease:cubic-bezier(.4,0,.2,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:"Pretendard Variable",Pretendard,-apple-system,system-ui,"Segoe UI",sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.65;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+
+  /* header */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);
+    backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid var(--line);}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px;}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:19px;letter-spacing:-.01em;color:var(--navy);}
+  .brand .mark{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--accent);font-weight:700;font-size:18px;
+    background:#FBF1DC;border-radius:7px;padding:3px 7px;line-height:1;}
+  .menu{display:flex;align-items:center;gap:30px;}
+  .menu a{font-size:15px;font-weight:500;color:var(--muted);transition:color .18s var(--ease);}
+  .menu a:hover{color:var(--primary);}
+  .back{display:inline-flex;align-items:center;gap:7px;}
+  .back .arr{transition:transform .18s var(--ease);}
+  .back:hover .arr{transform:translateX(-3px);}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--primary);color:#fff;font-weight:600;font-size:15px;
+    padding:11px 20px;border-radius:10px;border:1px solid var(--primary);cursor:pointer;white-space:nowrap;
+    transition:background .18s var(--ease),transform .18s var(--ease),box-shadow .18s var(--ease);}
+  .btn:hover{background:var(--primary-dark);transform:translateY(-1px);box-shadow:0 8px 20px -8px rgba(31,95,168,.55);}
+  .btn.ghost{background:transparent;color:var(--primary);border-color:var(--line);}
+  .btn.ghost:hover{background:var(--bg-alt);color:var(--primary-dark);border-color:#D4DBE4;box-shadow:none;transform:translateY(-1px);}
+  .btn .arr{transition:transform .18s var(--ease);}
+  .btn:hover .arr{transform:translateX(3px);}
+  .hamb{display:none;background:none;border:0;cursor:pointer;padding:8px;}
+  .hamb span{display:block;width:24px;height:2px;background:var(--navy);border-radius:2px;transition:.25s var(--ease);}
+  .hamb span+span{margin-top:6px;}
+
+  /* hero */
+  .hero{padding:80px 0 72px;background:
+    radial-gradient(120% 130% at 85% -10%,#EEF4FB 0%,rgba(238,244,251,0) 58%),var(--bg);}
+  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--primary);
+    background:#EAF1FA;border:1px solid #DCE7F4;padding:6px 13px;border-radius:999px;margin-bottom:22px;}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);}
+  h1{font-size:52px;line-height:1.12;letter-spacing:-.03em;font-weight:800;color:var(--navy);}
+  h1 .hl{color:var(--primary);}
+  .lead{margin-top:22px;font-size:18.5px;color:var(--muted);max-width:30em;line-height:1.7;}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px;}
+  .hero-cta .btn{padding:14px 24px;font-size:16px;}
+  .hero-logo{background:radial-gradient(80% 80% at 50% 40%,#FFFFFF 0%,#EDF2F8 100%);
+    border:1px solid var(--line);border-radius:26px;padding:46px;text-align:center;
+    box-shadow:0 32px 64px -38px rgba(19,40,63,.34);}
+  .hero-logo img{margin:0 auto;width:340px;max-width:92%;}
+
+  /* sections */
+  section{scroll-margin-top:84px;}
+  .sec{padding:88px 0;}
+  .sec.alt{background:var(--bg-alt);}
+  .sec.dark{background:var(--navy);color:#E3EBF3;}
+  .sec-head{max-width:680px;margin-bottom:48px;}
+  .sec-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+  .sec-tag{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);}
+  .sec h2{font-size:34px;line-height:1.25;letter-spacing:-.02em;font-weight:800;color:var(--navy);margin-top:12px;}
+  .sec.dark h2{color:#fff;}
+  .sec .sub{font-size:17px;color:var(--muted);margin-top:16px;line-height:1.75;}
+
+  /* feature cards */
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .fcard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:28px 26px;
+    transition:border-color .18s var(--ease),box-shadow .18s var(--ease),transform .18s var(--ease);}
+  .fcard:hover{border-color:#CFE0F2;box-shadow:0 18px 38px -24px rgba(19,40,63,.42);transform:translateY(-3px);}
+  .fcard .num{font-family:ui-monospace,Menlo,monospace;font-size:14px;font-weight:700;color:var(--accent);
+    width:40px;height:40px;border-radius:11px;background:#FBF1DC;display:grid;place-items:center;margin-bottom:18px;}
+  .fcard h3{font-size:19px;color:var(--navy);font-weight:700;letter-spacing:-.01em;}
+  .fcard p{font-size:15px;color:var(--muted);margin-top:9px;line-height:1.7;}
+
+  /* target audience */
+  .target-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+  .target-list{list-style:none;display:grid;gap:14px;}
+  .target-list li{display:flex;gap:14px;align-items:flex-start;font-size:17px;color:var(--ink);
+    background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;}
+  .target-list .tick{flex:none;width:26px;height:26px;border-radius:50%;background:#EAF1FA;color:var(--primary);
+    display:grid;place-items:center;font-size:14px;font-weight:800;}
+  .target-list b{color:var(--navy);}
+  .target-aside{background:#fff;border:1px solid var(--line);border-radius:20px;padding:36px;
+    box-shadow:0 24px 50px -36px rgba(19,40,63,.32);}
+  .target-aside .q{font-size:21px;font-weight:700;color:var(--navy);line-height:1.5;letter-spacing:-.01em;}
+  .target-aside .q .em{color:var(--primary);}
+  .target-aside p{font-size:15.5px;color:var(--muted);margin-top:16px;line-height:1.75;}
+
+  /* CTA */
+  .cta-box{text-align:center;max-width:680px;margin:0 auto;}
+  .cta-box h2{font-size:38px;color:#fff;letter-spacing:-.02em;font-weight:800;line-height:1.25;}
+  .cta-box p{font-size:17.5px;color:#A9BCD0;margin-top:18px;line-height:1.7;}
+  .cta-box .btn{margin-top:30px;padding:16px 30px;font-size:17px;background:var(--accent);border-color:var(--accent);color:#3A2706;}
+  .cta-box .btn:hover{background:#F2AC36;border-color:#F2AC36;box-shadow:0 10px 26px -10px rgba(229,154,28,.6);}
+  .cta-note{margin-top:18px;font-size:13.5px;color:#7E93AA;}
+
+  /* footer */
+  footer{background:var(--navy);color:#C7D3E0;padding:48px 0 40px;border-top:1px solid rgba(255,255,255,.08);}
+  .foot-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;align-items:center;}
+  .foot-brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:18px;}
+  .foot-brand .mark{font-family:ui-monospace,Menlo,monospace;color:var(--accent);background:rgba(229,154,28,.16);border-radius:7px;padding:3px 7px;font-size:16px;}
+  .foot-back{display:inline-flex;align-items:center;gap:7px;font-size:14.5px;color:#C7D3E0;}
+  .foot-back .arr{transition:transform .18s var(--ease);}
+  .foot-back:hover{color:#fff;}
+  .foot-back:hover .arr{transform:translateX(-3px);}
+  .foot-bottom{margin-top:30px;padding-top:22px;border-top:1px solid rgba(255,255,255,.1);font-size:13px;color:#8497AB;}
+
+  @media(max-width:900px){
+    .hero-grid,.target-grid{grid-template-columns:1fr;gap:40px;}
+    .hero-grid .hero-logo{order:-1;}
+    .feat-grid{grid-template-columns:1fr 1fr;}
+    h1{font-size:42px;}
+    .sec{padding:64px 0;}
+    .menu{position:fixed;inset:68px 0 auto 0;flex-direction:column;align-items:stretch;gap:0;
+      background:#fff;border-bottom:1px solid var(--line);padding:8px 24px 20px;
+      transform:translateY(-130%);opacity:0;pointer-events:none;transition:.28s var(--ease);
+      box-shadow:0 18px 30px -20px rgba(0,0,0,.25);}
+    .menu.open{transform:translateY(0);opacity:1;pointer-events:auto;}
+    .menu a{padding:14px 4px;border-bottom:1px solid var(--line);font-size:16px;}
+    .menu .btn{margin:14px 0 0;justify-content:center;}
+    .hamb{display:block;}
+  }
+  @media(max-width:560px){
+    h1{font-size:34px;}
+    .feat-grid{grid-template-columns:1fr;}
+    .sec h2{font-size:27px;}
+    .cta-box h2{font-size:29px;}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html" aria-label="코드비서 홈"><span class="mark">&lt;/&gt;</span>코드비서</a>
+    <nav class="menu" id="menu">
+      <a class="back" href="index.html"><span class="arr">←</span> 메인으로</a>
+      <a href="#features">주요 기능</a>
+      <a href="#target">이런 분께</a>
+      <a class="btn" href="https://wonbiseo.co.kr" target="_blank" rel="noopener">원비서 바로가기 <span class="arr">→</span></a>
+    </nav>
+    <button class="hamb" id="hamb" aria-label="메뉴 열기" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow"><span class="dot"></span>코드비서의 학원 운영 솔루션</span>
+        <h1>원비서<br><span class="hl">학원 운영을</span> 한 곳에서</h1>
+        <p class="lead">수납, 안내 문자, 출결, 현금영수증, 수강생 관리까지. 학원 운영에 꼭 필요한 일을 원비서 하나로 처리하세요.</p>
+        <div class="hero-cta">
+          <a class="btn" href="https://wonbiseo.co.kr" target="_blank" rel="noopener">원비서 바로가기 <span class="arr">→</span></a>
+          <a class="btn ghost" href="#features">주요 기능 보기</a>
+        </div>
+      </div>
+      <div class="hero-logo">
+        <img src="assets/wonbiseo-logo.png" alt="원비서 로고 — 학사모를 쓴 부엉이가 스마트폰을 든 모습" />
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="sec alt" id="features">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-tag">Features</div>
+        <h2>원비서 주요 기능</h2>
+        <p class="sub">학원 운영에서 손이 많이 가는 일들을 자동화하고 한 화면에 모았습니다.</p>
+      </div>
+      <div class="feat-grid">
+        <article class="fcard"><div class="num">01</div><h3>원비 원클릭 관리</h3><p>수강료 청구부터 수납까지, 복잡한 과정 없이 한 번에 처리합니다.</p></article>
+        <article class="fcard"><div class="num">02</div><h3>원비 안내 자동 문자</h3><p>수강료 안내 문자를 정해진 시점에 자동으로 발송해 누락을 줄입니다.</p></article>
+        <article class="fcard"><div class="num">03</div><h3>출결 문자</h3><p>등·하원 출결을 보호자에게 실시간 문자로 알려 안심을 더합니다.</p></article>
+        <article class="fcard"><div class="num">04</div><h3>현금영수증</h3><p>수납 건의 현금영수증을 번거로운 절차 없이 즉시 발급 처리합니다.</p></article>
+        <article class="fcard"><div class="num">05</div><h3>수강생 대장</h3><p>수강생 정보를 한 곳에서 통합 관리해 언제든 빠르게 찾아봅니다.</p></article>
+        <article class="fcard" style="background:linear-gradient(165deg,#EAF1FA,#F5F8FC);border-color:#DCE7F4;">
+          <div class="num" style="background:#fff;">＋</div><h3>하나의 흐름으로</h3><p>흩어져 있던 학원 업무를 원비서 하나의 흐름으로 묶었습니다.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TARGET -->
+  <section class="sec" id="target">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-tag">For You</div>
+        <h2>이런 분께 추천합니다</h2>
+      </div>
+      <div class="target-grid">
+        <ul class="target-list">
+          <li><span class="tick">✓</span><div><b>학원·교습소를 운영하는 원장님</b><br><span style="color:var(--muted);font-size:15px;">운영 업무를 한 곳에서 관리하고 싶은 분</span></div></li>
+          <li><span class="tick">✓</span><div><b>수납·안내 문자에 시간을 많이 쓰는 분</b><br><span style="color:var(--muted);font-size:15px;">반복되는 문자 발송을 자동화하고 싶은 분</span></div></li>
+          <li><span class="tick">✓</span><div><b>출결·수강생 정보를 한눈에 보고 싶은 분</b><br><span style="color:var(--muted);font-size:15px;">흩어진 자료를 하나로 모으고 싶은 분</span></div></li>
+        </ul>
+        <aside class="target-aside">
+          <p class="q">“수납하고, 문자 보내고, 출결 챙기고…<br><span class="em">매번 따로 하던 일</span>, 이제 원비서로 한 번에.”</p>
+          <p>원비서는 학원 운영의 반복 업무를 줄여, 원장님이 가르치는 일에 더 집중할 수 있도록 돕습니다.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="sec dark">
+    <div class="wrap">
+      <div class="cta-box">
+        <h2>원비서, 지금 만나보세요</h2>
+        <p>학원 운영의 번거로움을 덜어줄 원비서의 모든 기능을 공식 사이트에서 확인하실 수 있습니다.</p>
+        <a class="btn" href="https://wonbiseo.co.kr" target="_blank" rel="noopener">wonbiseo.co.kr 바로가기 <span class="arr">→</span></a>
+        <p class="cta-note">외부 사이트로 이동합니다 · https://wonbiseo.co.kr</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand"><span class="mark">&lt;/&gt;</span>코드비서</div>
+      <a class="foot-back" href="index.html"><span class="arr">←</span> 메인 페이지로 돌아가기</a>
+    </div>
+    <div class="foot-bottom">© 2026 코드비서 (CODEBISEO). All rights reserved. · 원비서는 코드비서의 제품입니다.</div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var hamb=document.getElementById('hamb');
+    var menu=document.getElementById('menu');
+    hamb.addEventListener('click',function(){
+      var open=menu.classList.toggle('open');
+      hamb.setAttribute('aria-expanded',open?'true':'false');
+    });
+    menu.addEventListener('click',function(e){
+      if(e.target.tagName==='A'){menu.classList.remove('open');hamb.setAttribute('aria-expanded','false');}
+    });
+  })();
+</script>
+</body>
+</html>
